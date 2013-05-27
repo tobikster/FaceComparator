@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FaceComparator.Algorithm;
 
 namespace FaceComparator
 {
@@ -23,6 +24,14 @@ namespace FaceComparator
         public MainWindow()
         {
             InitializeComponent();
+
+            var mat = new PreferenceMatrix(3);
+
+            mat.SetValue(0, 2, 7);
+            mat.SetValue(1,2, 3);
+
+            Console.Out.WriteLine(mat);
+            var a = mat.GetPreferenceVector();
         }
     }
 }
