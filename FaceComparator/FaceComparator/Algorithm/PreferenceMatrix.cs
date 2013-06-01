@@ -8,7 +8,7 @@ namespace FaceComparator.Algorithm
 {
     class PreferenceMatrix
     {
-        public static const double[] RI = 
+        public readonly double[] RI = 
         {
             0, 0, 0.52, 0.89, 1.11, 1.25, 1.35, 1.4, 1.45, 1.49, 1.51, 1.54, 1.56, 1.57,1.58, 
         };
@@ -81,7 +81,7 @@ namespace FaceComparator.Algorithm
             return _numDecisions;
         }
 
-        public bool GetCoherence()
+        public bool GetConsitent()
         {
             var result = true;
             if (_numDecisions < RI.Length)

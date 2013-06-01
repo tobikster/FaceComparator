@@ -14,10 +14,10 @@ namespace FaceComparator.Algorithm
             _decisionsMatrixes = decisionsMatrixes;
         }
 
-        public bool CalculateCoherence()
+        public bool CalculateConsistent()
         {
-            var result = _criterionsMatrix.GetCoherence();
-            _decisionsMatrixes.Select(dm => result &= dm.GetCoherence());
+            var result = _criterionsMatrix.GetConsitent();
+            _decisionsMatrixes.Select(dm => result &= dm.GetConsitent());
             return result;
         }
 
