@@ -5,19 +5,19 @@ namespace FaceComparator.Algorithm
 {
     class AHP
     {
-        private readonly PreferenceMatrix _criterionsMatrix;
+        private readonly PreferenceMatrix _criteriaMatrix;
         private readonly PreferenceMatrix[] _decisionsMatrixes;
         
-        public AHP(PreferenceMatrix criterionsMatrix, PreferenceMatrix[] decisionsMatrixes)
+        public AHP(PreferenceMatrix criteriaMatrix, PreferenceMatrix[] decisionsMatrixes)
         {
-            _criterionsMatrix = criterionsMatrix;
+            _criteriaMatrix = criteriaMatrix;
             _decisionsMatrixes = decisionsMatrixes;
         }
 
         public bool CalculateConsistent()
         {
-            var result = _criterionsMatrix.GetConsitent();
-            _decisionsMatrixes.Select(dm => result &= dm.GetConsitent());
+            var result = _criteriaMatrix.GetConsistency();
+            _decisionsMatrixes.Select(dm => result &= dm.GetConsistency());
             return result;
         }
 
@@ -25,7 +25,7 @@ namespace FaceComparator.Algorithm
         {
             var result = new double[_decisionsMatrixes.First().GetDecisionsCount()];
 
-            var criterionPreferenceVector = _criterionsMatrix.GetPreferenceVector();
+            var criterionPreferenceVector = _criteriaMatrix.GetPreferenceVector();
             var decisionsPreferenceVectors = _decisionsMatrixes.Select(dm => dm.GetPreferenceVector());
 
             for (int i = 0; i < result.Length; ++i)

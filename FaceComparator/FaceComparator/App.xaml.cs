@@ -13,5 +13,13 @@ namespace FaceComparator
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup_1(object sender, StartupEventArgs e)
+        {
+            var window = new MainWindow();
+            var controller = new Controller(window);
+            window.Show();
+
+            controller.Start();
+        }
     }
 }

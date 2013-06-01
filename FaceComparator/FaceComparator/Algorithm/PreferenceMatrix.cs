@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FaceComparator.Algorithm
 {
-    class PreferenceMatrix
+    class PreferenceMatrix : INotifyPropertyChanged
     {
         public readonly double[] RI = 
         {
@@ -14,7 +16,7 @@ namespace FaceComparator.Algorithm
         };
 
         private readonly double[,] _internalMatrix;
-        private readonly int _numDecisions;
+        protected readonly int _numDecisions;
 
         public PreferenceMatrix(int decisions)
         {
@@ -29,6 +31,13 @@ namespace FaceComparator.Algorithm
                     _internalMatrix[i, j] = 1;
                 }
             }
+
+            IsConsistent = true;
+        }
+
+        public double GetValue(int row, int column)
+        {
+            return _internalMatrix[row, column];
         }
 
         public void SetValue(int row, int column, double value)
@@ -37,6 +46,8 @@ namespace FaceComparator.Algorithm
 
             _internalMatrix[row, column] = value;
             _internalMatrix[column, row] = 1 / value;
+
+            IsConsistent = GetConsistency();
         }
 
         private double[] SumColumns()
@@ -81,7 +92,7 @@ namespace FaceComparator.Algorithm
             return _numDecisions;
         }
 
-        public bool GetConsitent()
+        public bool GetConsistency()
         {
             var result = true;
             if (_numDecisions < RI.Length)
@@ -100,6 +111,24 @@ namespace FaceComparator.Algorithm
             return result;
         }
 
+        private bool _isConsistent;
+        public bool IsConsistent
+        {
+            get
+            {
+                return _isConsistent;
+            }
+            set 
+            { 
+                _isConsistent = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+
+
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -114,6 +143,14 @@ namespace FaceComparator.Algorithm
             }
 
             return sb.ToString();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

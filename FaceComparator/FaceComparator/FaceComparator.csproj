@@ -53,18 +53,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CriterionComparisonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProblemDefinitionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Algorithm\AHP.cs" />
+    <Compile Include="Algorithm\Criterion.cs" />
+    <Compile Include="Algorithm\CriterionPreferenceMatrix.cs" />
+    <Compile Include="Algorithm\Decision.cs" />
     <Compile Include="Algorithm\PreferenceMatrix.cs" />
+    <Compile Include="Algorithm\Problem.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controller.cs" />
+    <Compile Include="CriterionComparisonControl.xaml.cs">
+      <DependentUpon>CriterionComparisonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SliderToAHPConverter.cs" />
+    <Compile Include="TextPrompt.xaml.cs">
+      <DependentUpon>TextPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProblemDefinitionControl.xaml.cs">
+      <DependentUpon>ProblemDefinitionControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
