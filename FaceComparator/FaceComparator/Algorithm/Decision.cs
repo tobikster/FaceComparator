@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace FaceComparator.Algorithm
 {
+    [Serializable]
     class Decision
     {
         public BitmapImage Image { get; set; }
