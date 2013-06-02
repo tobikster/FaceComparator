@@ -55,11 +55,11 @@ namespace FaceComparator.Algorithm
 
         public double Value
         {
-            get { return _parentMatrix.GetValue(_firstCritNum, _secondCritNum); }
+            get { return _parentMatrix.GetValue(_secondCritNum, _firstCritNum); }
 
             set
             {
-                _parentMatrix.SetValue(_firstCritNum, _secondCritNum, value);
+                _parentMatrix.SetValue(_secondCritNum, _firstCritNum, value);
             }
         }
     }

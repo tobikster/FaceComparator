@@ -42,7 +42,7 @@ namespace FaceComparator.Algorithm
 
         public void SetValue(int row, int column, double value)
         {
-            if (row >= column) throw new Exception("Można ustawiać tylko wartości z górnej połowy macierzy!");
+            //if (row >= column) throw new Exception("Można ustawiać tylko wartości z górnej połowy macierzy!");
 
             _internalMatrix[row, column] = value;
             _internalMatrix[column, row] = 1 / value;
@@ -54,11 +54,11 @@ namespace FaceComparator.Algorithm
         {
             var result = new double[_numDecisions];
 
-            for (int i = 0; i < _numDecisions; i++)
+            for (int row = 0; row < _numDecisions; row++)
             {
-                for (int j = 0; j < _numDecisions; j++)
+                for (int col = 0; col < _numDecisions; col++)
                 {
-                    result[i] += _internalMatrix[j, i];
+                    result[col] += _internalMatrix[row, col];
                 }
             }
 
@@ -71,17 +71,14 @@ namespace FaceComparator.Algorithm
 
             var sumColumns = SumColumns();
 
-            for (int i = 0; i < _numDecisions; i++)
+            for (int row = 0; row < _numDecisions; row++)
             {
-                for (int j = 0; j < _numDecisions; j++)
+                result[row] = 0.0;
+                for (int col = 0; col < _numDecisions; col++)
                 {
-                    result[i] += (_internalMatrix[i, j] / sumColumns[j]);
+                    result[row] += (_internalMatrix[row, col] / sumColumns[col]);
                 }
-            }
-
-            for (int i = 0; i < _numDecisions; i++)
-            {
-                result[i] /= _numDecisions;
+                result[row] /= _numDecisions;
             }
 
             return result;
