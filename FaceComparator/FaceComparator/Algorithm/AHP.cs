@@ -27,16 +27,15 @@ namespace FaceComparator.Algorithm
             var result = new double[_decisionsMatrixes.First().GetDecisionsCount()];
 
             var criterionPreferenceVector = _criteriaMatrix.GetPreferenceVector();
-            var decisionsPreferenceVectors = _decisionsMatrixes.Select(dm => dm.GetPreferenceVector());
+            var decisionsPreferenceVectors = _decisionsMatrixes.Select(dm => dm.GetPreferenceVector()).ToList();
 
-            for (int i = 0; i < result.Length; ++i)
+            for (int decisionIndex = 0; decisionIndex < result.Length; ++decisionIndex)
             {
-                result[i] = 0.0;
-                foreach (double[] vector in decisionsPreferenceVectors)
+                result[decisionIndex] = 0.0;
+                for (int criteriumIndex = 0; criteriumIndex < criterionPreferenceVector.Length; ++criteriumIndex)
                 {
-                    result[i] += vector[i];
+                    result[decisionIndex] += decisionsPreferenceVectors[criteriumIndex][decisionIndex] * criterionPreferenceVector[criteriumIndex];
                 }
-                result[i] *= criterionPreferenceVector[i];
             }
 
             return result;
