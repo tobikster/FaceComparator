@@ -89,7 +89,7 @@
             </Button>
         </Grid>
 
-        <Button Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" Margin="0,5,0,5" Content="Kontynuuj" Click="Button_Click_5">
+        <Button x:Name="ContinueButton" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" Margin="0,5,0,5" Content="Kontynuuj">
             <Button.Style>
                 <Style>
                     <Style.Triggers>

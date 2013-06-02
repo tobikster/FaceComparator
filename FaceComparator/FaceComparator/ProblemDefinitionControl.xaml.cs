@@ -22,7 +22,6 @@ namespace FaceComparator
     /// </summary>
     public partial class ProblemDefinitionControl : UserControl
     {
-        public event EventHandler Done;
 
         public ProblemDefinitionControl()
         {
@@ -64,11 +63,6 @@ namespace FaceComparator
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             ((Problem) DataContext).RemoveCriterion(CriterionList.SelectedItem as Criterion);
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            if (Done != null) Done(this, null);
         }
     }
 }
