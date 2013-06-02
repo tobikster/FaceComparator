@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Height="768" Width="1024"
         >
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -27,10 +27,10 @@
                     <WrapPanel></WrapPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                        <Image Source="{Binding Thumbnail}" Width="140" Height="200"></Image>
+                    <Image Source="{Binding Thumbnail}" Width="140" Height="200"></Image>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListBox>
@@ -88,7 +88,7 @@
                 </Button.Style>
             </Button>
         </Grid>
-        
+
         <Button Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" Margin="0,5,0,5" Content="Kontynuuj" Click="Button_Click_5">
             <Button.Style>
                 <Style>

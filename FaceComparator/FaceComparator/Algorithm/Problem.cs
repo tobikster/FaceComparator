@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -71,11 +72,11 @@ namespace FaceComparator.Algorithm
             try
             {
                 IFormatter formatter = new BinaryFormatter();
-                //TODO: serialization - problem with ObserableCollection @tobikster
-                //foreach (var decision in _decisions)
-                //{
-                //    formatter.Serialize(output, decision);
-                //}
+                var decisions = (IList<Decision>)(_decisions);
+                foreach (var decision in decisions)
+                {
+                    formatter.Serialize(output, decision);
+                }
             }
             finally
             {
@@ -88,7 +89,12 @@ namespace FaceComparator.Algorithm
             try
             {
                 IFormatter formatter = new BinaryFormatter();
-                //TODO: deserialization @tobikster
+                var decisions = (IList<Decision>)(formatter.Deserialize(input));
+                _decisions.Clear();
+                foreach (var decision in decisions)
+                {
+                    _decisions.Add(decision);
+                }
             }
             finally
             {
