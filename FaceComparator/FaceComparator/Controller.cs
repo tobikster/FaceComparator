@@ -18,6 +18,8 @@ namespace FaceComparator
 
         private Problem _problem;
 
+        private int ActiveCriterionIndex = 0;
+
         public void Start()
         {
             _problem = new Problem();
@@ -25,7 +27,7 @@ namespace FaceComparator
             var problemDefinitionControl = new ProblemDefinitionControl();
 
             problemDefinitionControl.DataContext = _problem;
-            problemDefinitionControl.Done += ProblemDefinitionControlOnDone;
+            problemDefinitionControl.ContinueButton.Click += ProblemDefinitionControlOnDone;
 
             _frame.Content = problemDefinitionControl;
         }
@@ -37,6 +39,32 @@ namespace FaceComparator
             criterionComparisonControl.DataContext = _problem.CriterionPreferenceMatrix;
 
             _frame.Content = criterionComparisonControl;
+
+            criterionComparisonControl.ContinueButton.Click += (o, args) =>
+                {
+                    var decisionComparisionControl = new DecisionComparisonControl();
+
+                    decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+
+                    decisionComparisionControl.ContinueButton.Click += (sender1, routedEventArgs) =>
+                        {
+                            
+                            ActiveCriterionIndex++;
+                            if (ActiveCriterionIndex == _problem.Criteria.Count)
+                            {
+                                var AHP = new AHP(_problem.CriterionPreferenceMatrix,
+                                                  _problem.DecisionPreferenceMatrices.ConvertAll<PreferenceMatrix>(x => x));
+                                var ranking = AHP.GetRanking();
+                                foreach (var d in ranking)
+                                {
+                                    Console.Out.WriteLine(d);
+                                }
+                            }
+                            else decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+                        };
+
+                    _frame.Content = decisionComparisionControl;
+                };
         }
     }
 }

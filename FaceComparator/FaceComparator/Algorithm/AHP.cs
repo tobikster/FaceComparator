@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FaceComparator.Algorithm
@@ -6,9 +7,9 @@ namespace FaceComparator.Algorithm
     class AHP
     {
         private readonly PreferenceMatrix _criteriaMatrix;
-        private readonly PreferenceMatrix[] _decisionsMatrixes;
-        
-        public AHP(PreferenceMatrix criteriaMatrix, PreferenceMatrix[] decisionsMatrixes)
+        private readonly List<PreferenceMatrix> _decisionsMatrixes;
+
+        public AHP(PreferenceMatrix criteriaMatrix, List<PreferenceMatrix> decisionsMatrixes)
         {
             _criteriaMatrix = criteriaMatrix;
             _decisionsMatrixes = decisionsMatrixes;

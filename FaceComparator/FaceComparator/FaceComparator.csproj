@@ -57,6 +57,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DecisionComparisonControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +77,7 @@
     <Compile Include="Algorithm\Criterion.cs" />
     <Compile Include="Algorithm\CriterionPreferenceMatrix.cs" />
     <Compile Include="Algorithm\Decision.cs" />
+    <Compile Include="Algorithm\DecisionPreferenceMatrix.cs" />
     <Compile Include="Algorithm\PreferenceMatrix.cs" />
     <Compile Include="Algorithm\Problem.cs" />
     <Compile Include="App.xaml.cs">
@@ -80,13 +85,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controller.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="CriterionComparisonControl.xaml.cs">
       <DependentUpon>CriterionComparisonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DecisionComparisonControl.xaml.cs">
+      <DependentUpon>DecisionComparisonControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SliderToAHPConverter.cs" />
+    <Compile Include="Converters\SliderToAHPConverter.cs" />
     <Compile Include="TextPrompt.xaml.cs">
       <DependentUpon>TextPrompt.xaml</DependentUpon>
     </Compile>

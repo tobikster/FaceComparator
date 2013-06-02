@@ -61,5 +61,26 @@ namespace FaceComparator.Algorithm
                        (_criterionPreferenceMatrix = new CriterionPreferenceMatrix(_criteria));
             }
         }
+
+        private List<DecisionPreferenceMatrix> _decisionPreferenceMatrices;
+        public List<DecisionPreferenceMatrix> DecisionPreferenceMatrices
+        {
+            get
+            {
+                return _decisionPreferenceMatrices ??
+                       (_decisionPreferenceMatrices = GenerateDecisionPreferenceMatrices());
+            }
+        }
+
+        private List<DecisionPreferenceMatrix> GenerateDecisionPreferenceMatrices()
+        {
+            var result = new List<DecisionPreferenceMatrix>();
+            foreach (var criterion in Criteria)
+            {
+                var decisionMatrix = new DecisionPreferenceMatrix(_decisions, criterion);
+                result.Add(decisionMatrix);
+            }
+            return result;
+        }
     }
 }
