@@ -19,5 +19,7 @@ namespace FaceComparator.Algorithm
             Image = img;
             Thumbnail = img;
         }
+
+        internal double ranking;
     }
 }

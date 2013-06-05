@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,6 +67,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RankingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TextPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +92,7 @@
     </Compile>
     <Compile Include="Controller.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\RankingConverter.cs" />
     <Compile Include="CriterionComparisonControl.xaml.cs">
       <DependentUpon>CriterionComparisonControl.xaml</DependentUpon>
     </Compile>
@@ -96,6 +103,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SliderToAHPConverter.cs" />
+    <Compile Include="RankingControl.xaml.cs">
+      <DependentUpon>RankingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextPrompt.xaml.cs">
       <DependentUpon>TextPrompt.xaml</DependentUpon>
     </Compile>

@@ -55,10 +55,13 @@ namespace FaceComparator
                             var AHP = new AHP(_problem.CriterionPreferenceMatrix,
                                                 _problem.DecisionPreferenceMatrices.ConvertAll<PreferenceMatrix>(x => x));
                             var ranking = AHP.GetRanking();
-                            foreach (var d in ranking)
-                            {
-                                Console.Out.WriteLine(d);
-                            }
+                            
+                            _problem.SortDecisionsByRanking(ranking);
+
+                            var rankingControl = new RankingControl();
+                            rankingControl.DataContext = _problem;
+
+                            _frame.Content = rankingControl;
                         }
                         else decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
                     };

@@ -17,12 +17,12 @@ namespace FaceComparator.Algorithm
         public Problem()
         {
             AddCriterion("Oczy");
-            AddCriterion("Ząby");
-            AddCriterion("Futerko");
+            AddCriterion("Usta");
+            AddCriterion("Nos");
         }
 
 
-        private readonly ObservableCollection<Decision> _decisions = new ObservableCollection<Decision>();
+        private ObservableCollection<Decision> _decisions = new ObservableCollection<Decision>();
         public ObservableCollection<Decision> Decisions
         {
             get { return _decisions; }
@@ -38,7 +38,15 @@ namespace FaceComparator.Algorithm
             _decisions.Remove(toRemove);
         }
 
+        public void SortDecisionsByRanking(double[] ranking)
+        {
+            for (int i = 0; i < ranking.Length; i++)
+            {
+                Decisions[i].ranking = ranking[i];
+            }
 
+            _decisions = new ObservableCollection<Decision>(Decisions.OrderByDescending(e => e.ranking));
+        }
 
 
         private readonly ObservableCollection<Criterion> _criteria = new ObservableCollection<Criterion>();
