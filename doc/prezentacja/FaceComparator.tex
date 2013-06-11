@@ -6,9 +6,9 @@
 \usetheme{CambridgeUS}
 
 \title{Face Comparator}
-\author[PT MZ]{
+\author[PT MW]{
 	inż. Paweł Tobiszewski, 179169\\*
-	inż. Marcin Ważeliński
+	inż. Marcin Ważeliński, 179151
 }
 \institute[PWr]{Wydział Informatyki i Zarządzania, Politechnika Wrocławska}
 \date{13 czerwca 2013}
@@ -35,6 +35,7 @@
 \frametitle{Przykład - wstęp}
 \end{frame}
 
+\subsection{Definicja problemu}
 \begin{frame}
 \frametitle{Macierze porównań kryteriów}
 	\begin{columns}
@@ -81,6 +82,7 @@
 	\end{columns}
 \end{frame}
 
+\subsection{Normalizacja macierzy}
 \begin{frame}
 \frametitle{Etap 1 --- normalizacja macierzy}
 Aby znormalizować macierze, należy najpierw policzyć sumy w kolumnach, a następnie każdą wartość komórki macierzy podzielić przez sumę z odpowiadającej jej kolumny.
@@ -199,6 +201,7 @@ Przykład dla macierzy porównań kryteriów:
 	\end{columns}
 \end{frame}
 
+\subsection{Wyznaczenie wektorów preferencji}
 \begin{frame}
 \frametitle{Etap 2 --- wyznaczenie wektorów preferencji}
 Dla każdej ze znormalizowanych macierzy należy wyznaczyć wektor preferencji --- wyliczając średnie arytmetyczne wartości w wierszach macierzy.
@@ -307,7 +310,63 @@ Dla każdej ze znormalizowanych macierzy należy wyznaczyć wektor preferencji -
 	\end{columns}
 \end{frame}
 
-\begin{frame}
+\subsection{Wyznaczenie rankingu decyzji}
+\begin{frame}[allowframebreaks]
 \frametitle{Etap 3 - wyznaczenie rankingu decyzji}
+Aby wyznaczyć ranking decyzji, należy pomnożyć macierz powstałą przez ,,sklejenie'' wektorów preferencji względem każdego z kryteriów przez wektor preferencji kryteriów:
+$$ R=\left[c_1 c_2 c_3\right]\times[c_0] $$
+$$
+	R=
+	\left[
+	\begin{array}{ccc}
+		c_1^{(1)}	&	c_2^{(1)}	&	c_3^{(1)}\\
+		c_1^{(2)}	&	c_2^{(2)}	&	c_3^{(2)}\\
+		c_1^{(3)}	&	c_2^{(3)}	&	c_3^{(3)}\\
+	\end{array}
+	\right]
+	\times
+	\left[
+	\begin{array}{ccc}
+		c_0^{(1)}\\
+		c_0^{(2)}\\
+		c_0^{(3)}\\
+	\end{array}
+	\right]
+$$
+\framebreak
+$$
+	R=
+	\left[
+	\begin{array}{ccc}
+		0.23	&	0.69	&	0.06\\
+		0.70	&	0.23	&	0.19\\
+		0.07	&	0.08	&	0.75\\
+	\end{array}
+	\right]
+	\times
+	\left[
+	\begin{array}{ccc}
+		$0.51$\\
+		$0.39$\\
+		$0.1$
+	\end{array}
+	\right]
+	=
+	\left[
+	\begin{array}{ccc}
+		0.39\\
+		0.46\\
+		0.14\\
+	\end{array}
+	\right]
+$$
+W wyniku otrzymujemy wektor rankingu decyzji --- każdy wiersz odpowiada kolejnej decyzji.
+Z wektora tego możemy odczytać, że najbardziej preferowaną twarzą (według zadanych macierzy porównań) jest twarz druga.
+Kolejną --- twarz pierwsza, a najmniej odpowiada nam twarz trzecia.
+\end{frame}
+
+\subsection{Test spójności}
+\begin{frame}
+\frametitle{Etap 4 --- test spójności}
 \end{frame}
 \end{document}
