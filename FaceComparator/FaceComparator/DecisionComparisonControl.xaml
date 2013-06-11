@@ -10,9 +10,21 @@
     <UserControl.Resources>
         <converters:SliderToAHPConverter x:Key="ConverterAHP"></converters:SliderToAHPConverter>
         <converters:BooleanToVisibilityConverter x:Key="ConverterV"></converters:BooleanToVisibilityConverter>
+        <converters:BooleanToVisibilityConverterRev x:Key="ConverterVR"></converters:BooleanToVisibilityConverterRev>
     </UserControl.Resources>
     <Grid>
-
+        <Grid.Background>
+            <RadialGradientBrush 
+          GradientOrigin="0.1,0.0" 
+          Center="0.2,0.0" RadiusX="1.5" RadiusY="1">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="DeepSkyBlue" Offset="0" />
+                    <GradientStop Color="DarkTurquoise" Offset="0.25" />
+                    <GradientStop Color="PaleTurquoise" Offset="0.75" />
+                    <GradientStop Color="White" Offset="1" />
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="60"></RowDefinition>
@@ -20,8 +32,20 @@
             <RowDefinition Height="40"/>
 
         </Grid.RowDefinitions>
+        
+        
+        
         <Label Grid.Row="0" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="48">Porównaj twarze</Label>
-        <Label Grid.Row="0" Foreground="Red" HorizontalAlignment="Right"  FontSize="48" Visibility="{Binding IsConsistent, Converter={StaticResource ConverterV}}">NIESPÓJNA</Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0"  Visibility="{Binding IsConsistent, Converter={StaticResource ConverterV}}" Margin="0,0,15,0">
+            <Image Source="warning-icon.png"  Width="64"></Image>
+            <TextBlock VerticalAlignment="Center" Foreground="Black" FontSize="18">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="9" Color="DarkOrange"></DropShadowEffect>
+                </TextBlock.Effect>
+                Podane przez Ciebie dane są niespójne.<LineBreak/>
+                Wynik porównania może być przekłamany.</TextBlock>
+        </StackPanel>
+        
 
         <Label Grid.Row="1" Margin="15,0,0,0" HorizontalAlignment="Left" Content="{Binding Criterion.Name}"  FontSize="36">
             <Label.ContentStringFormat>
@@ -39,11 +63,17 @@
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Image Source="{Binding First.Thumbnail}" Width="300" Height="300"></Image>
-                        <Slider VerticalAlignment="Center" Width="400" IsSnapToTickEnabled="True" Value="{Binding Value, Converter={StaticResource ConverterAHP}}" Minimum="-4" Maximum="4" TickFrequency="1"></Slider>
-                        <Image Source="{Binding Second.Thumbnail}" Width="300" Height="300"></Image>
-                    </StackPanel>
+                    <Grid x:Name="PairGrid" Background="Transparent" Margin="30" Tag="{Binding}" MouseUp="PairGrid_MouseUp" >                       
+                        <Rectangle Fill="#55000000" x:Name="PairBackground" RadiusX="10" RadiusY="10" Visibility="{Binding IsMouseOver, ElementName=PairGrid, Mode=OneWay, Converter={StaticResource ConverterVR}}">
+                            
+                        </Rectangle>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+                            <Image Source="{Binding First.Thumbnail}" Width="200" Height="300" Margin="10"></Image>
+                            <Slider VerticalAlignment="Center" Width="400" IsSnapToTickEnabled="True" Value="{Binding Value, Converter={StaticResource ConverterAHP}}" Minimum="-4" Maximum="4" TickFrequency="1"></Slider>
+                            <Image Source="{Binding Second.Thumbnail}" Width="200" Height="300" Margin="10"></Image>
+                        </StackPanel>
+                    </Grid>
+                    
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -51,6 +81,8 @@
         <Button x:Name="ContinueButton" Grid.Row="3" HorizontalAlignment="Center" Width="300" Margin="362,5,362,0" Content="Kontynuuj" Click="Button_Click_5" Height="30" VerticalAlignment="Top">
             
         </Button>
+
+        <l:Lightbox x:Name="Lightbox" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="4" Visibility="Hidden"></l:Lightbox>
 
     </Grid>
 </UserControl>

@@ -11,6 +11,18 @@
         <converters:RankingConverter x:Key="RankingConverter"></converters:RankingConverter>
     </UserControl.Resources>
     <Grid>
+        <Grid.Background>
+            <RadialGradientBrush 
+          GradientOrigin="0.1,0.0" 
+          Center="0.2,0.0" RadiusX="1.5" RadiusY="1">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="DeepSkyBlue" Offset="0" />
+                    <GradientStop Color="DarkTurquoise" Offset="0.25" />
+                    <GradientStop Color="PaleTurquoise" Offset="0.75" />
+                    <GradientStop Color="White" Offset="1" />
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+        </Grid.Background>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>

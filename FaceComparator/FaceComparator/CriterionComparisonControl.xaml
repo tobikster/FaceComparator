@@ -12,7 +12,18 @@
         <converters:BooleanToVisibilityConverter x:Key="ConverterV"></converters:BooleanToVisibilityConverter>
     </UserControl.Resources>
     <Grid>
-
+        <Grid.Background>
+            <RadialGradientBrush 
+          GradientOrigin="0.1,0.0" 
+          Center="0.2,0.0" RadiusX="1.5" RadiusY="1">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="DeepSkyBlue" Offset="0" />
+                    <GradientStop Color="DarkTurquoise" Offset="0.25" />
+                    <GradientStop Color="PaleTurquoise" Offset="0.75" />
+                    <GradientStop Color="White" Offset="1" />
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
@@ -20,7 +31,15 @@
 
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="48">Porównaj kryteria</Label>
-        <Label Grid.Row="0" Foreground="Red" HorizontalAlignment="Right"  FontSize="48" Visibility="{Binding IsConsistent, Converter={StaticResource ConverterV}}">NIESPÓJNA</Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0"  Visibility="{Binding IsConsistent, Converter={StaticResource ConverterV}}" Margin="0,0,15,0">
+            <Image Source="warning-icon.png"  Width="64"></Image>
+            <TextBlock VerticalAlignment="Center" Foreground="Black" FontSize="18">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="9" Color="DarkOrange"></DropShadowEffect>
+                </TextBlock.Effect>
+                Podane przez Ciebie dane są niespójne.<LineBreak/>
+                Wynik porównania może być przekłamany.</TextBlock>
+        </StackPanel>
 
         <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Decisions}" Margin="15" x:Name="CriterionPairsList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ItemsControl.Template>

@@ -5,6 +5,18 @@
         >
 
     <Grid>
+        <Grid.Background>
+            <RadialGradientBrush 
+          GradientOrigin="0.1,0.0" 
+          Center="0.2,0.0" RadiusX="1.5" RadiusY="1">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Color="DarkTurquoise" Offset="0" />
+                    <GradientStop Color="Turquoise" Offset="0.25" />
+                    <GradientStop Color="PaleTurquoise" Offset="0.65" />
+                    <GradientStop Color="White" Offset="1" />
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -24,27 +36,23 @@
         <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Decisions}" Margin="15" x:Name="DecisionList" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <WrapPanel HorizontalAlignment="Center"></WrapPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Thumbnail}" Width="140" Height="200"></Image>
+                    <Image Source="{Binding Thumbnail}" Width="150" Height="200" Margin="2,2,2,2"></Image>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListBox>
 
         <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Criteria}" Margin="15" x:Name="CriterionList" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}"></Label>
+                    <Label Content="{Binding Name}" FontSize="30"></Label>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListBox>

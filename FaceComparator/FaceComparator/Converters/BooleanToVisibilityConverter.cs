@@ -25,4 +25,21 @@ namespace FaceComparator.Converters
             return val != Visibility.Visible;
         }
     }
+
+    class BooleanToVisibilityConverterRev : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var val = (bool)value;
+
+            return val ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var val = (Visibility)value;
+
+            return val == Visibility.Visible;
+        }
+    }
 }

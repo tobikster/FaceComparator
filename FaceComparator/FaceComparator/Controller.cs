@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using FaceComparator.Algorithm;
 
 namespace FaceComparator
@@ -53,9 +56,9 @@ namespace FaceComparator
                         if (ActiveCriterionIndex == _problem.Criteria.Count)
                         {
                             var AHP = new AHP(_problem.CriterionPreferenceMatrix,
-                                                _problem.DecisionPreferenceMatrices.ConvertAll<PreferenceMatrix>(x => x));
+                                              _problem.DecisionPreferenceMatrices.ConvertAll<PreferenceMatrix>(x => x));
                             var ranking = AHP.GetRanking();
-                            
+
                             _problem.SortDecisionsByRanking(ranking);
 
                             var rankingControl = new RankingControl();
@@ -63,7 +66,12 @@ namespace FaceComparator
 
                             _frame.Content = rankingControl;
                         }
-                        else decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+                        else
+                        {
+                            decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+                            var scrollViewer = VisualTreeHelper.GetChild(decisionComparisionControl.DecisionPairsList, 0) as ScrollViewer;
+                            scrollViewer.ScrollToHome();
+                        }
                     };
 
                 _frame.Content = decisionComparisionControl;

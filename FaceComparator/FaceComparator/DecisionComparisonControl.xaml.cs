@@ -27,5 +27,12 @@ namespace FaceComparator
         {
 
         }
+
+        private void PairGrid_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var pair = (sender as Grid).Tag as DecisionPair;
+            this.Lightbox.DataContext = pair;
+            this.Lightbox.Visibility = Visibility.Visible;
+        }
     }
 }
