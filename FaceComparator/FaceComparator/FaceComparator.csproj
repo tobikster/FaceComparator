@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,17 +55,62 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="CriterionComparisonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DecisionComparisonControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RankingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProblemDefinitionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Algorithm\AHP.cs" />
+    <Compile Include="Algorithm\Criterion.cs" />
+    <Compile Include="Algorithm\CriterionPreferenceMatrix.cs" />
+    <Compile Include="Algorithm\Decision.cs" />
+    <Compile Include="Algorithm\DecisionPreferenceMatrix.cs" />
     <Compile Include="Algorithm\PreferenceMatrix.cs" />
+    <Compile Include="Algorithm\Problem.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controller.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\RankingConverter.cs" />
+    <Compile Include="CriterionComparisonControl.xaml.cs">
+      <DependentUpon>CriterionComparisonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DecisionComparisonControl.xaml.cs">
+      <DependentUpon>DecisionComparisonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\SliderToAHPConverter.cs" />
+    <Compile Include="RankingControl.xaml.cs">
+      <DependentUpon>RankingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextPrompt.xaml.cs">
+      <DependentUpon>TextPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProblemDefinitionControl.xaml.cs">
+      <DependentUpon>ProblemDefinitionControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="FaceComparator.CriterionComparisonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:FaceComparator" xmlns:algorithm="clr-namespace:FaceComparator.Algorithm"
+             xmlns:converters="clr-namespace:FaceComparator.Converters"
+             mc:Ignorable="d" 
+             Width="1024" Height="768" d:DataContext="{d:DesignInstance algorithm:CriterionPreferenceMatrix}">
+    <UserControl.Resources>
+        <converters:SliderToAHPConverter x:Key="ConverterAHP"></converters:SliderToAHPConverter>
+        <converters:BooleanToVisibilityConverter x:Key="ConverterV"></converters:BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="48">Porównaj kryteria</Label>
+        <Label Grid.Row="0" Foreground="Red" HorizontalAlignment="Right"  FontSize="48" Visibility="{Binding IsConsistent, Converter={StaticResource ConverterV}}">NIESPÓJNA</Label>
+
+        <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Decisions}" Margin="15" x:Name="CriterionPairsList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label HorizontalContentAlignment="Right" FontSize="24" Content="{Binding First.Name}" Width="300"></Label>
+                        <Slider VerticalAlignment="Center" Width="400" IsSnapToTickEnabled="True" Value="{Binding Value, Converter={StaticResource ConverterAHP}}" Minimum="-4" Maximum="4" TickFrequency="1"></Slider>
+                        <Label FontSize="24" Content="{Binding Second.Name}" Width="300"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button x:Name="ContinueButton" Grid.Row="2" HorizontalAlignment="Center" Width="300" Margin="362,5,362,0" Content="Kontynuuj" Click="Button_Click_5" Height="30" VerticalAlignment="Top">
+            
+        </Button>
+
+    </Grid>
+</UserControl>
