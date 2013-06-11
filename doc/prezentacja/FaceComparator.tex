@@ -1,0 +1,313 @@
+\documentclass{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+
+\usetheme{CambridgeUS}
+
+\title{Face Comparator}
+\author[PT MZ]{
+	inż. Paweł Tobiszewski, 179169\\*
+	inż. Marcin Ważeliński
+}
+\institute[PWr]{Wydział Informatyki i Zarządzania, Politechnika Wrocławska}
+\date{13 czerwca 2013}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Przedstawienie problemu}
+\begin{frame}
+\frametitle{Przedstawienie problemu}
+	\begin{itemize}
+	\item Problem --- porównywanie twarzy
+	\item Decyzje --- zdjęcia twarzy
+	\item Kryteria --- podawane przez Użytkownika
+	\item Do rozwiązania wykorzystano metodę AHP
+	\end{itemize}
+\end{frame}
+
+\section{Przykład problemu}
+\begin{frame}
+\frametitle{Przykład - wstęp}
+\end{frame}
+
+\begin{frame}
+\frametitle{Macierze porównań kryteriów}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{table}
+			\caption{Porównanie kryteriów}
+				\begin{tabular}{c|c|c|c}
+					&	$K_1$	&	$K_2$	&	$K_3$\\ \hline
+				$K_1$	&	$1.0$	&	$1.0$	&	$7.0$\\ \hline
+				$K_2$	&	$1.0$	&	$1.0$	&	$3.0$\\ \hline
+				$K_3$	&	$0.14$	&	$0.33$	&	$1.0$
+				\end{tabular}
+			\end{table}
+			\begin{table}
+			\caption{Kryterium 1}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$0.2$	&	$5.0$\\ \hline
+				$D_2$	&	$5.0$	&	$1.0$	&	$7.0$\\ \hline
+				$D_3$	&	$0.2$	&	$0.14$	&	$1.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{table}
+			\caption{Kryterium 2}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$3.0$	&	$9.0$\\ \hline
+				$D_2$	&	$0.33$	&	$1.0$	&	$3.0$\\ \hline
+				$D_3$	&	$0.11$	&	$0.33$	&	$1.0$
+				\end{tabular}
+			\end{table}
+			\begin{table}
+			\caption{Kryterium 3}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$0.2$	&	$0.11$\\ \hline
+				$D_2$	&	$5.0$	&	$1.0$	&	$0.14$\\ \hline
+				$D_3$	&	$9.0$	&	$7.0$	&	$1.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Etap 1 --- normalizacja macierzy}
+Aby znormalizować macierze, należy najpierw policzyć sumy w kolumnach, a następnie każdą wartość komórki macierzy podzielić przez sumę z odpowiadającej jej kolumny.
+Przykład dla macierzy porównań kryteriów:
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$1.0$	&	$7.0$\\ \hline
+				$D_2$	&	$1.0$	&	$1.0$	&	$3.0$\\ \hline
+				$D_3$	&	$0.14$	&	$0.33$	&	$1.0$\\ \hline\hline
+				$c_0$	&	$2.14$	&	$2.33$	&	$11.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.47$	&	$0.43$	&	$0.64$\\ \hline
+				$D_2$	&	$0.47$	&	$0.43$	&	$0.27$\\ \hline
+				$D_3$	&	$0.07$	&	$0.14$	&	$0.09$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+	$c_0$ oznacza wektor sum
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+	Kryterium 1
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$0.2$	&	$5.0$\\ \hline
+				$D_2$	&	$5.0$	&	$1.0$	&	$7.0$\\ \hline
+				$D_3$	&	$0.2$	&	$0.14$	&	$1.0$\\ \hline\hline
+				$c_1$	&	$6.20$	&	$1.34$	&	$13.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+	Kryterium 2
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$0.2$	&	$5.0$\\ \hline
+				$D_2$	&	$5.0$	&	$1.0$	&	$7.0$\\ \hline
+				$D_3$	&	$0.2$	&	$0.14$	&	$1.0$\\ \hline\hline
+				$c_2$	&	$6.20$	&	$1.34$	&	$13.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+	\framebreak
+	Kryterium 3
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$1.0$	&	$0.2$	&	$5.0$\\ \hline
+				$D_2$	&	$5.0$	&	$1.0$	&	$7.0$\\ \hline
+				$D_3$	&	$0.2$	&	$0.14$	&	$1.0$\\ \hline\hline
+				$c_3$	&	$6.20$	&	$1.34$	&	$13.0$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Etap 2 --- wyznaczenie wektorów preferencji}
+Dla każdej ze znormalizowanych macierzy należy wyznaczyć wektor preferencji --- wyliczając średnie arytmetyczne wartości w wierszach macierzy.
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+					&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.47$	&	$0.43$	&	$0.64$\\ \hline
+				$D_2$	&	$0.47$	&	$0.43$	&	$0.27$\\ \hline
+				$D_3$	&	$0.07$	&	$0.14$	&	$0.09$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			\begin{table}
+				\begin{tabular}{c}
+				$s_0$\\ \hline
+				$0.51$\\
+				$0.39$\\
+				$0.1$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+				$K_1$	&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			\begin{table}
+				\begin{tabular}{c}
+				$s_0$\\ \hline
+				$0.23$\\
+				$0.70$\\
+				$0.07$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+				$K_2$	&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			\begin{table}
+				\begin{tabular}{c}
+				$s_0$\\ \hline
+				$0.69$\\
+				$0.23$\\
+				$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{table}
+				\begin{tabular}{c|c|c|c}
+				$K_3$	&	$D_1$	&	$D_2$	&	$D_3$\\ \hline
+				$D_1$	&	$0.16$	&	$0.15$	&	$0.38$\\ \hline
+				$D_2$	&	$0.81$	&	$0.74$	&	$0.54$\\ \hline
+				$D_3$	&	$0.03$	&	$0.11$	&	$0.08$
+				\end{tabular}
+			\end{table}
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			$\rightarrow$
+		\end{column}
+		\begin{column}{0.1\textwidth}
+			\begin{table}
+				\begin{tabular}{c}
+				$s_0$\\ \hline
+				$0.06$\\
+				$0.19$\\
+				$0.75$
+				\end{tabular}
+			\end{table}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Etap 3 - wyznaczenie rankingu decyzji}
+\end{frame}
+\end{document}
