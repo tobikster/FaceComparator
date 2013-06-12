@@ -42,7 +42,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Thumbnail}" Width="150" Height="200" Margin="2,2,2,2"></Image>
+                    <Image Stretch="UniformToFill" Source="{Binding Thumbnail}" Width="142" Height="210" Margin="4"></Image>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListBox>
@@ -97,22 +97,25 @@
             </Button>
         </Grid>
 
-        <Button x:Name="ContinueButton" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" Margin="0,5,0,5" Content="Kontynuuj">
-            <Button.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger 
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button x:Name="ContinueButton" Width="300" Margin="0,5,0,5" Content="Kontynuuj">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger 
                      Binding ="{Binding ElementName=CriterionList, Path=Items.IsEmpty}" Value="true">
-                            <Setter Property="Button.IsEnabled" Value="false"/>
-                        </DataTrigger>
-                        <DataTrigger 
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                            <DataTrigger 
                      Binding ="{Binding ElementName=DecisionList, Path=Items.IsEmpty}" Value="true">
-                            <Setter Property="Button.IsEnabled" Value="false"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        
 
     </Grid>
 </UserControl>

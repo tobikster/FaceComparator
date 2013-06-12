@@ -4,7 +4,6 @@
 \usepackage[utf8]{inputenc}
 
 \usetheme{CambridgeUS}
-%\usetheme{Madrid}
 
 \title{Face Comparator}
 \author[PT MW]{
@@ -32,6 +31,10 @@
 \end{frame}
 
 \section{Przykład problemu}
+\begin{frame}
+\frametitle{Przykład - wstęp}
+\end{frame}
+
 \subsection{Definicja problemu}
 \begin{frame}
 \frametitle{Macierze porównań kryteriów}
@@ -335,25 +338,25 @@ $$
 	R=
 	\left[
 	\begin{array}{ccc}
-	0.23	&	0.69	&	0.06\\
-	0.70	&	0.23	&	0.19\\
-	0.07	&	0.08	&	0.75\\
+		0.23	&	0.69	&	0.06\\
+		0.70	&	0.23	&	0.19\\
+		0.07	&	0.08	&	0.75\\
 	\end{array}
 	\right]
 	\times
 	\left[
 	\begin{array}{ccc}
-	$0.51$\\
-	$0.39$\\
-	$0.1$
+		$0.51$\\
+		$0.39$\\
+		$0.1$
 	\end{array}
 	\right]
 	=
 	\left[
 	\begin{array}{ccc}
-	0.39\\
-	0.46\\
-	0.14\\
+		0.39\\
+		0.46\\
+		0.14\\
 	\end{array}
 	\right]
 $$
@@ -365,49 +368,5 @@ Kolejną --- twarz pierwsza, a najmniej odpowiada nam twarz trzecia.
 \subsection{Test spójności}
 \begin{frame}
 \frametitle{Etap 4 --- test spójności}
-Aby zapewnić wiarygodność wyniku, wszystkie macierze powinny być spójne (w przeciwnym przypadku wynik nie musi być poprawny).
-	\begin{block}{Spójność macierzy}
-	$$\forall_{i,j,k}\left(a_{i,j}*a_{j,k}=a_{i,k}\right)$$
-	\end{block}
-Jednak zdefiniowana w ten sposób spójność jest trudna do obliczenia.
-Dlatego do obliczenia spójności zastosowana została metoda Saaty'ego.
-\end{frame}
-
-\begin{frame}
-\frametitle{Spójność - metoda Satty'ego}
-$$CR=\frac{CI}{RI}$$
-$$CI=\frac{\lambda-n}{n-1}$$
-$$\lambda=c \times s\textrm{, gdzie } c \textrm{ --- wektor sum, } s \textrm{ --- wektor preferencji}$$
-Macierz jest spójna, jeżeli $CR < 0.1$.
-$RI$ jest współczynnikiem, którego wartość zależy od rozmiaru macierzy.
-Dla macierzy $3 \times 3$, $RI$ wynosi $0.58$.
-\end{frame}
-
-\begin{frame}
-\frametitle{Spójność macierzy porównań kryteriów}
-$$\lambda_0=\left[\begin{array}{ccc}2.14 & 2.33 & 11.0\end{array}\right]\times\left[\begin{array}{c}0.51\\0.39\\0.1\end{array}\right]=3.1$$
-$$CI_0=\frac{\lambda_0-3}{2}=\frac{3.1-3}{2}=0.05$$
-$$CR_0=\frac{CI_0}{RI_3}=\frac{0.05}{0.58}=0.09 < 0.1 \rightarrow\textrm{macierz spójna}$$
-\end{frame}
-
-\begin{frame}
-\frametitle{Spójność macierzy porównań pierwszego kryterium}
-$$\lambda_1=\left[\begin{array}{ccc}6.2 & 1.34 & 13.0\end{array}\right]\times\left[\begin{array}{c}0.23\\0.70\\0.07\end{array}\right]=3.31$$
-$$CI_1=\frac{\lambda_1-3}{2}=\frac{3.31-3}{2}=0.15$$
-$$CR_1=\frac{CI_1}{RI_3}=\frac{0.15}{0.58}=0.26 > 0.1 \rightarrow\textrm{macierz niespójna}$$
-\end{frame}
-
-\begin{frame}
-\frametitle{Spójność macierzy porównań drugiego kryterium}
-$$\lambda_2=\left[\begin{array}{ccc}1.44 & 4.33 & 13.0\end{array}\right]\times\left[\begin{array}{c}0.69\\0.23\\0.08\end{array}\right]=3.0$$
-$$CI_2=\frac{\lambda_2-3}{2}=\frac{3.0-3}{2}=0.0$$
-$$CR_2=\frac{CI_2}{RI_3}=\frac{0.0}{0.58}=0.0 < 0.1 \rightarrow\textrm{macierz spójna}$$
-\end{frame}
-
-\begin{frame}
-\frametitle{Spójność macierzy porównań trzeciego kryterium}
-$$\lambda_3=\left[\begin{array}{ccc}15.0 & 8.2 & 1.25\end{array}\right]\times\left[\begin{array}{c}0.06\\0.19\\0.75\end{array}\right]=3.4$$
-$$CI_3=\frac{\lambda_3-3}{2}=\frac{3.4-3}{2}=0.2$$
-$$CR_3=\frac{CI_3}{RI_3}=\frac{0.2}{0.58}=0.34 > 0.1 \rightarrow\textrm{macierz niespójna}$$
 \end{frame}
 \end{document}

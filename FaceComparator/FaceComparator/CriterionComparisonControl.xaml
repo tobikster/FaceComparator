@@ -51,7 +51,7 @@
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
                         <Label HorizontalContentAlignment="Right" FontSize="24" Content="{Binding First.Name}" Width="300"></Label>
                         <Slider VerticalAlignment="Center" Width="400" IsSnapToTickEnabled="True" Value="{Binding Value, Converter={StaticResource ConverterAHP}}" Minimum="-4" Maximum="4" TickFrequency="1"></Slider>
                         <Label FontSize="24" Content="{Binding Second.Name}" Width="300"></Label>

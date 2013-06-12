@@ -14,7 +14,7 @@ namespace FaceComparator.Converters
         {
             var val = (int) value;
 
-            return (val + 1) + ".";
+            return (val + 4) + " ";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
