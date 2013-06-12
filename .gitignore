@@ -114,3 +114,5 @@ UpgradeLog*.XML
 *.out
 *.snm
 *.toc
+
+.*.swp
