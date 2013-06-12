@@ -64,10 +64,46 @@ namespace FaceComparator
                             var rankingControl = new RankingControl();
                             rankingControl.DataContext = _problem;
 
+                            rankingControl.BackButton.Click += (o1, args1) =>
+                                {
+                                    ActiveCriterionIndex--;
+                                    decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+                                    var scrollViewer = VisualTreeHelper.GetChild(decisionComparisionControl.DecisionPairsList, 0) as ScrollViewer;
+                                    scrollViewer.ScrollToHome();
+                                    _frame.Content = decisionComparisionControl;
+                                };
+
+                            rankingControl.RestartButton.Click += (o1, args1) =>
+                                {
+                                    var problemDefinitionControl = new ProblemDefinitionControl();
+                                    ActiveCriterionIndex = 0;
+
+                                    problemDefinitionControl.DataContext = _problem;
+                                    problemDefinitionControl.ContinueButton.Click += ProblemDefinitionControlOnDone;
+
+                                    _frame.Content = problemDefinitionControl;
+                                };
+
                             _frame.Content = rankingControl;
                         }
                         else
                         {
+                            decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
+                            var scrollViewer = VisualTreeHelper.GetChild(decisionComparisionControl.DecisionPairsList, 0) as ScrollViewer;
+                            scrollViewer.ScrollToHome();
+                        }
+                    };
+
+                decisionComparisionControl.BackButton.Click += (sender1, routedEventArgs) =>
+                    {
+                        if (ActiveCriterionIndex == 0)
+                        {
+                            criterionComparisonControl.DataContext = _problem.CriterionPreferenceMatrix;
+                            _frame.Content = criterionComparisonControl;
+                        }
+                        else
+                        {
+                            ActiveCriterionIndex--;
                             decisionComparisionControl.DataContext = _problem.DecisionPreferenceMatrices[ActiveCriterionIndex];
                             var scrollViewer = VisualTreeHelper.GetChild(decisionComparisionControl.DecisionPairsList, 0) as ScrollViewer;
                             scrollViewer.ScrollToHome();

@@ -26,14 +26,14 @@
                 <DropShadowEffect BlurRadius="40"  Direction="0" ShadowDepth="0" />
             </Rectangle.Effect>
         </Rectangle>
-        <Image Grid.Column="0" Width="400" Height="600" Source="{Binding First.Image}"></Image>
+        <Image Grid.Column="0" Width="400" Height="600" Source="{Binding First.Image}" Stretch="UniformToFill"></Image>
 
         <Rectangle Grid.Column="1" Fill="White" Width="420" Height="620" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="40"  Direction="0" ShadowDepth="0" />
             </Rectangle.Effect>
         </Rectangle>
-        <Image Grid.Column="1" Width="400" Height="600" Source="{Binding Second.Image}"></Image>
+        <Image Grid.Column="1" Width="400" Height="600" Source="{Binding Second.Image}" Stretch="UniformToFill"></Image>
 
     </Grid>
 </UserControl>

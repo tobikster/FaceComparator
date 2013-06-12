@@ -96,6 +96,26 @@ namespace FaceComparator.Algorithm
             return result;
         }
 
+        public IEnumerable<Decision> Runners
+        {
+            get { return Decisions.Skip(3); }
+        }
+
+        public Decision First
+        {
+            get { return Decisions[0]; }
+        }
+
+        public Decision Second
+        {
+            get { return Decisions[1]; }
+        }
+
+        public Decision Third
+        {
+            get { return Decisions[2]; }
+        }
+
         public void SaveDecisions(Stream output)
         {
             try
