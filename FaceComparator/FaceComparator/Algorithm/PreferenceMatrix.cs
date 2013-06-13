@@ -12,7 +12,7 @@ namespace FaceComparator.Algorithm
     {
         public readonly double[] RI = 
         {
-            0, 0, 0.52, 0.89, 1.11, 1.25, 1.35, 1.4, 1.45, 1.49, 1.51, 1.54, 1.56, 1.57,1.58, 
+            double.MaxValue, double.MaxValue, 0.52, 0.89, 1.11, 1.25, 1.35, 1.4, 1.45, 1.49, 1.51, 1.54, 1.56, 1.57,1.58, 
         };
 
         private readonly double[,] _internalMatrix;
@@ -102,7 +102,7 @@ namespace FaceComparator.Algorithm
                     lambda += sumsVector[i] * preferenceVector[i];
                 }
                 var ci = (lambda - _numDecisions) / (_numDecisions - 1);
-                var cr = ci / RI[_numDecisions];
+                var cr = ci / RI[_numDecisions - 1];
                 result = cr < 0.1;
             }
             return result;
