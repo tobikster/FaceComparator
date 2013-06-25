@@ -11,5 +11,6 @@ namespace FaceComparator.Algorithm
         public string Name { get; set; }
 
         public PreferenceMatrix PreferenceMatrix { get; set; }
+
     }
 }
